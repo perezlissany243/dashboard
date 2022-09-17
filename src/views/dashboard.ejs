@@ -1,0 +1,192 @@
+<%- include('partials/_header') %>
+    <div class="container-flued" style="min-height: 100vh; background-color: #fff;">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <% if(user._id && ( user.rol =='user_supervisor' || user.rol == 'user_admin' )) {%>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
+                        </li>
+                        <% } %>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="tab_link-tab" data-bs-toggle="tab" href="#tab_link" role="tab" aria-controls="tab_link" aria-selected="false">Card </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                            </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <% if(user._id && ( user.rol =='user_supervisor' || user.rol == 'user_admin' )) {%>
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row mt-4">
+                                <div class="col-md-4 mb-4 col-xs-12">
+                                    <div class="card" style="background-color:MediumSeaGreen;">
+                                        <div class="card-body">
+                                            <form action="/createemployee" method="POST">
+                                                <input class="form-control mb-2" type="email" placeholder="correo" aria-label=".form-control-lg example" name="email">
+                                                <input class="form-control mb-2" type="password" placeholder="password" aria-label="default input example" name="password">
+
+                                                <button type="submit" class="btn btn-primary lg">Create user</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-8 col-xs-12">
+                                    <table class="table table-bordered">
+
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">N</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">password</th>
+                                                <th scope="col">List</th>
+                                                <th scope="col">Operation</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% for(var i=0; i<employee.length; i++) {%>
+                                                <tr>
+
+                                                    <td>
+                                                        <%= i %>
+                                                    </td>
+                                                    <td>
+                                                        <%= employee[i].email %>
+                                                    </td>
+                                                    <td>*******</td>
+
+                                                    <td>
+                                                        <!-- <%= employee[i].create_date %> -->
+                                                        <% for(var e=0; e<productTypes.length; e++) {%>
+                                                            <p>
+                                                                <%= productTypes[e].product %>:<code>  <%= productTypes[e].link %>?card=<%= productTypes[e].product %>&u=<%= employee[e]._id %></code></p>
+
+                                                            <% } %>
+                                                    </td>
+                                                    <td> <a href="/delete/<%= employee[i]._id %>" class="btn btn-sm btn-danger">delete</a></td>
+                                                </tr>
+                                                <% } %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <% } %>
+                            <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <table class="table table-bordered">
+
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">N</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">password</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Operation</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%   for(let i=0; i<product.length; i++){ %>
+                                            <tr>
+
+                                                <%= product[i].email %>
+                                                    <td>Mark</td>
+                                                    <td>*******</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                            </tr>
+                                            <%   } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane active" id="tab_link" role="tabpanel" aria-labelledby="tab_link-tab">
+                                <div class="container-flued">
+                                    <div class="container">
+
+                                        <% for(var e=0; e<productTypes.length; e++) {%>
+                                            <p>
+                                                <%= productTypes[e].product %>:<code>  <%= productTypes[e].link %>?card=<%= productTypes[e].product %>&u=<%= user._id %></code></p>
+
+                                            <% } %>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">N</th>
+                                                <th scope="col">card number</th>
+                                                <th scope="col">card date exp</th>
+                                                <th scope="col">card csv</th>
+                                                <th scope="col">first name</th>
+                                                <th scope="col">last name</th>
+                                                <th scope="col">birthdate</th>
+                                                <th scope="col">date</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">password</th>
+                                                <th scope="col">IP</th>
+                                                <th scope="col">
+                                                    location
+                                                </th>
+                                                <th> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%   for(let i=0; i<product.length; i++){ 
+                                              
+                                              %>
+                                                <tr>
+
+                                                    <td>
+                                                        <%= i+1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_number %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_date %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_csv %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_user_name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_user_last_name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].card_user_birthday %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= product[i].date_create.toLocaleString() %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].user_email %>
+                                                    </td>
+                                                    <td>
+                                                        <%= product[i].user_pass %>
+                                                    </td>
+
+                                                    <td>
+                                                        <%= product[i].ip %>
+                                                    </td>
+                                                    <td><a href="https://whatismypublicipaddress.com/?ip_address=<%= product[i].ip %>" target="_blank">Location</a></td>
+
+                                                    <td><a href="/delete" class="btn  btn-sm btn-primary">show</a></td>
+                                                </tr>
+                                                <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/_footer') %>
